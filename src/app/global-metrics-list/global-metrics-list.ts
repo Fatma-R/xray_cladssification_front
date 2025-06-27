@@ -3,6 +3,7 @@ import { GlobalMetrics, GlobalMetricsService } from '../services/global-metrics'
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { subscribeOn } from 'rxjs';
 
 @Component({
   selector: 'app-global-metrics-list',
@@ -14,7 +15,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 export class GlobalMetricsList implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['round', 'testLoss', 'testAccuracy', 'sensitivity', 'specificity', 'dateTime'];
   dataSource = new MatTableDataSource<GlobalMetrics>([]);
-
+  latestMetrics?: GlobalMetrics;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
   constructor(private globalMetricsService: GlobalMetricsService) {}
@@ -22,6 +23,10 @@ export class GlobalMetricsList implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.globalMetricsService.getAllMetrics().subscribe((d: GlobalMetrics[]) => {
       this.dataSource.data = d; 
+    });
+
+    this.globalMetricsService.getLatestMetrics().subscribe((l: GlobalMetrics)=> {
+      this.latestMetrics = l;
     });
   }
 

@@ -1,3 +1,7 @@
+
+<p>
+  Our model is at {{ (latestMetrics?.testAccuracy || 0) * 100}}% testing accuracy as of {{ latestMetrics?.datetime | date: "dd/mm/yyyy HH:mm:ss" }}!
+</p><br>
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
 

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from  '../../environment/environment.dev';
 
 export interface GlobalMetrics { //faster than a class
-  id?: number;
+  id?: number; // id may be undefined, to be checked
   round: number;
   testLoss: number;
   testAccuracy: number;
@@ -14,12 +14,12 @@ export interface GlobalMetrics { //faster than a class
 }
 
 @Injectable({
-  providedIn: 'root'
-})
+  providedIn: 'root' //singleton service
+})  
 export class GlobalMetricsService {
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {} //http is both a parameter and a property of the class 
 
   getAllMetrics(): Observable<GlobalMetrics[]> {
     return this.http.get<GlobalMetrics[]>(`${this.apiUrl}/metrics/all`);
@@ -28,8 +28,11 @@ export class GlobalMetricsService {
   getLatestMetrics(): Observable<GlobalMetrics> {
     return this.http.get<GlobalMetrics>(`${this.apiUrl}/metrics/latest`);
   }
+  
+  //this api method will probably never be needed since the python script is the one to the backend:
 
-  saveMetrics(metrics: GlobalMetrics): Observable<GlobalMetrics> {
-    return this.http.post<GlobalMetrics>(`${this.apiUrl}/metrics/save`, metrics);
-  }
+  // saveMetrics(metrics: GlobalMetrics): Observable<GlobalMetrics> {
+  //   return this.http.post<GlobalMetrics>(`${this.apiUrl}/metrics/save`, metrics);
+  // }
+
 }
