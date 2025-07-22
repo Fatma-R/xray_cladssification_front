@@ -17,7 +17,7 @@ export interface GlobalMetrics { //faster than a class
   providedIn: 'root' //singleton service
 })  
 export class GlobalMetricsService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = environment.apiUrl+'/model';
 
   constructor(private http: HttpClient) {} //http is both a parameter and a property of the class 
 

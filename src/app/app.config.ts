@@ -2,12 +2,15 @@ import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } fr
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
+import { NgChartsModule } from 'ng2-charts';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom(HttpClientModule),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes)
+    provideRouter(routes), provideHttpClient(withInterceptors([AuthInterceptor])),
+    importProvidersFrom(NgChartsModule),
   ]
 };
