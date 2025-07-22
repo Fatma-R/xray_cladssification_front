@@ -21,8 +21,8 @@ npm -v
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/your-angular-project.git
-cd your-angular-project
+git clone https://github.com/Fatma-R/xray_cladssification_front.git
+cd xray_cladssification_front
 ```
 
 ### 2. Install Dependencies
